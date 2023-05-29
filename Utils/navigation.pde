@@ -1,9 +1,8 @@
 /* === === === === === === === === === ===
-  * Document      : input code
+  * Document      : navigation code
   * Project       : IOT CONNECTED PONG
   * 
-  * Description   : handles keyboard clicks
-  *                 and presses
+  * Description   : handles menus and links
   *
   * Authors       : Tristan Brankovic
   *                 Alexandre Eang
@@ -17,7 +16,9 @@
  (c) Tristan Brankovic & Alexandre Eang
 */
 
-// note to self : change int[] arrays with variable sizes to arrayList 
+// note to self : change int[] arrays with variable sizes to arrayList or,
+// use append(Array) method
+// 
 // nav_cursor is fine with arrays
 // 
 // maybe flush cursor position history when back browsing more than 2 layers
@@ -35,7 +36,7 @@ final int ALT_LINK_CALIBRATION = 3;
 final int ALT_LINK_MODIFYRULES = 4;
 
 // MENU UIDs
-final int NAV_MENU_MAXINDEX = 8;
+final int NAV_MENU_COUNT = 9;// max index + 1
 
 final int NAV_MAINMENU = 0;
 final int NAV_SOLOMENU = 1;
@@ -78,7 +79,7 @@ final int NAV_LOBBYGUEST = 8;
   final boolean NAV_SOLOMENU_ALLOWCYCLE = true;
   final int NAV_SOLOMENU_MAXROW = 6;
   final String[] NAV_SOLOMENU_LABEL = {
-    "Play",
+    "Start match",
     "Gamemode",
     "Difficulty",
     "Max point",
@@ -254,7 +255,7 @@ final int NAV_LOBBYGUEST = 8;
 // === === VARS === ===
 // === === ==== === ===
   int[] nav_path; // 0 is top, N-1 is last, as for every arrays
-  int[] nav_cursor = new int[NAV_MENU_MAXINDEX+1];
+  int[] nav_cursor = new int[NAV_MENU_COUNT];
 
   String nav_activeMenu_name;
   int nav_activeMenu;
@@ -426,9 +427,9 @@ void nav_updatePath(int newPathElement){
 
 
 // === === CURSOR HISTORY === ===
-// === === ============ === ===
+// === === ============== === ===
 void nav_resetCursor(){
-  int[] nav_cursor_buffer = new int[NAV_MENU_MAXINDEX+1];
+  int[] nav_cursor_buffer = new int[NAV_MENU_COUNT];
   nav_cursor=nav_cursor_buffer;
   return;
 }
@@ -443,6 +444,9 @@ void nav_updateCursor(){
 // === === USER INPUT === ===
 // === === ========== === ===
 void nav_menuOk(){
+  ui_highlightButtonRow = nav_activeRow;
+  ui_highlightLabel = nav_label[nav_activeRow];
+
   if (nav_type[nav_activeRow] != ALT_LINK){
     nav_updatePath(nav_link[nav_activeRow]);
     nav_setMenu(nav_link[nav_activeRow]);

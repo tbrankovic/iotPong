@@ -8,7 +8,7 @@
   * Authors       : Tristan Brankovic
   *                 Alexandre Eang
   *
-  * Date          : 26/05/2023
+  * Date          : 28/05/2023
   * Created on    : 24/04/2023
   * Version       : 1.0 
   * Repository    : github.com/tbrankovic/iotPong/
@@ -34,6 +34,7 @@ final int KEYCODE_ENTER = 10;
 final int KEYCODE_BACKSPACE = 8;
 final int KEYCODE_ESCAPE = 27;
 
+final int DELAY_DOUBLECLICK = 90;
 
 
 // === === VARS === ===
@@ -43,6 +44,7 @@ boolean isPressed_up;
 boolean isPressed_right;
 boolean isPressed_left;
 boolean isPressed_ok;
+boolean isPressed_boost;
 boolean isPressed_back;
 
 boolean wasPressed_down;
@@ -50,7 +52,11 @@ boolean wasPressed_up;
 boolean wasPressed_right;
 boolean wasPressed_left;
 boolean wasPressed_ok;
+boolean wasPressed_boost;
 boolean wasPressed_back;
+
+int esc_time;
+int esc_lasttime;
 
 
 
@@ -62,6 +68,7 @@ void initInput(){
   isPressed_right = false;
   isPressed_left = false;
   isPressed_ok = false;
+  isPressed_boost = false;
   isPressed_back = false;
 
   wasPressed_down = false;
@@ -69,6 +76,7 @@ void initInput(){
   wasPressed_right = false;
   wasPressed_left = false;
   wasPressed_ok = false;
+  wasPressed_boost = false;
   wasPressed_back = false;
 }
 
@@ -83,8 +91,6 @@ boolean getEvent_down(){
   return false;
 }
 
-
-
 boolean getEvent_up(){
   //if rising transition
   if (wasPressed_up==false && isPressed_up==true) {
@@ -94,8 +100,6 @@ boolean getEvent_up(){
   return false;
 }
 
-
-
 boolean getEvent_right(){
   //if rising transition
   if (wasPressed_right==false && isPressed_right==true) {
@@ -104,8 +108,6 @@ boolean getEvent_right(){
   };
   return false;
 }
-
-
 
 boolean getEvent_left(){
   //if rising transition
@@ -117,7 +119,6 @@ boolean getEvent_left(){
 }
 
 
-
 boolean getEvent_ok(){
   //if rising transition
   if (wasPressed_ok==false && isPressed_ok==true) {
@@ -127,7 +128,14 @@ boolean getEvent_ok(){
   return false;
 }
 
-
+boolean getEvent_boost(){
+  //if rising transition
+  if (wasPressed_boost==false && isPressed_boost==true) {
+    wasPressed_boost = isPressed_boost;
+    return true;
+  };
+  return false;
+}
 
 boolean getEvent_back(){
   //if rising transition
@@ -179,6 +187,10 @@ public void keyPressed() {
       
     // OTHER CASES
     case KEYCODE_ESCAPE:
+      esc_time = millis();
+      if (esc_time < esc_lasttime + DELAY_DOUBLECLICK && esc_time > esc_lasttime){
+        ui_specialExit();
+      }
       wasPressed_back = isPressed_back;
       isPressed_back = (keyCode == KEYCODE_ESCAPE || keyCode == KEYCODE_BACKSPACE);
       key=0;//prevents exiting the application
@@ -193,7 +205,9 @@ public void keyPressed() {
       return;
     case KEYCODE_SPACE:
       wasPressed_ok = isPressed_ok;
+      wasPressed_boost = isPressed_boost;
       isPressed_ok = (keyCode == KEYCODE_ENTER || keyCode == KEYCODE_SPACE);
+      isPressed_boost = isPressed_ok;
       return;
 
 
@@ -234,6 +248,7 @@ public void keyReleased() {
     // OTHER CASES
     case KEYCODE_ESCAPE:
       isPressed_back = (keyCode != KEYCODE_ESCAPE && keyCode != KEYCODE_BACKSPACE);
+      esc_lasttime = millis();
       return; 
     case KEYCODE_BACKSPACE:
       isPressed_back = (keyCode != KEYCODE_ESCAPE && keyCode != KEYCODE_BACKSPACE);
@@ -243,6 +258,7 @@ public void keyReleased() {
       return;
     case KEYCODE_SPACE:
       isPressed_ok = (keyCode != KEYCODE_ENTER && keyCode != KEYCODE_SPACE);
+      isPressed_boost = isPressed_ok;
       return;
 
   };
