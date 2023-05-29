@@ -2,8 +2,7 @@
   * Document      : TEST input
   * Project       : IOT CONNECTED PONG
   * 
-  * Description   : Unitary test code for keyboard
-  *                 input.
+  * Description   : Test code for keyboard input.
   *                 Simply add TEST_INPUT_init() to setup()
   *                 and TEST_INPUT() in the bottom of draw(),
   *                 preferably alone in draw()

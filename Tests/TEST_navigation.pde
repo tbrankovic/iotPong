@@ -33,7 +33,7 @@ void TEST_NAV_init(){
 
   frameRate(144);
 
-  TEST_NAV_printMenu();
+  TEST_NAV_console();
 }
 
 
@@ -42,7 +42,7 @@ void TEST_NAV_init(){
 // === === ==== === ===
 void TEST_NAV(){
   background(0);
-  TEST_NAV_printMenu();
+  TEST_NAV_console();
 
   if (getEvent_up()){
     nav_menuUp();
@@ -63,7 +63,7 @@ void TEST_NAV(){
 }
 
 
-void TEST_NAV_printMenu(){
+void TEST_NAV_console(){
   println("\n\n\n\n\n\n\n\n\n");
 
   // for (int k = 0 ; k < nav_path.length ; k++){
