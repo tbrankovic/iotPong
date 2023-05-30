@@ -8,7 +8,7 @@
   * Authors       : Tristan Brankovic
   *                 Alexandre Eang
   *
-  * Date          : 28/05/2023
+  * Date          : 30/05/2023
   * Created on    : 28/05/2023
   * Version       : 1.0 
   * Repository    : github.com/tbrankovic/iotPong/
@@ -23,13 +23,15 @@
 // === === ===== === ===
 void TEST_GAME_init(){
   initInput();
-  ui_displayType=1;
+  initGame();
+  
+  
+  displayType = DISPLAYTYPE_GAME;
   ui_theme = THEME_DARK;
   frameRate(144);
-
-  initGame();
-  game_set();
   background(20);
+  game_set();
+  
   println("Starting unitary test");
   delay(1000);
 }
@@ -39,6 +41,10 @@ void TEST_GAME_init(){
 // === === LOOP === ===
 // === === ==== === ===
 void TEST_GAME(){
+  game_updatePos();
+  
+  
+  
   if (isPressed_down){
     game_moveDown();
   };
@@ -47,7 +53,7 @@ void TEST_GAME(){
     game_moveUp();
   }
 
-  game_updatePos();
+  
 }
 
 

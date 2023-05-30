@@ -9,7 +9,7 @@
   * Authors       : Tristan Brankovic
   *                 Alexandre Eang
   *
-  * Date          : 29/05/2023
+  * Date          : 30/05/2023
   * Created on    : 26/05/2023
   * Version       : 1.0 
   * Repository    : github.com/tbrankovic/iotPong/
@@ -29,7 +29,7 @@ void TEST_UI_init(){
   initUI();
 
   ui_theme=THEME_DARK;
-  ui_displayType=UI_DISPLAYTYPE_MENU;
+  displayType=DISPLAYTYPE_MENU;
 
   ui_drawMenu();
 }
