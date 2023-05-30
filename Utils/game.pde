@@ -7,7 +7,7 @@
   * Authors       : Tristan Brankovic
   *                 Alexandre Eang
   *
-  * Date          : 28/05/2023
+  * Date          : 30/05/2023
   * Created on    : 21/05/2023
   * Version       : 1.0 
   * Repository    : github.com/tbrankovic/iotPong/
@@ -20,14 +20,11 @@
 
 // === === CONSTANTS === ===
 // === === ========= === ===
-// Alternate functions ID
-final int GAME_BALL_DIRLEFT = -1;
-final int GAME_BALL_DIRRIGHT = 1;
-final int GAME_BALL_DIRUP = -1;
-final int GAME_BALL_DIRDOWN = 1;
-final int GAME_BALL_MAXSPEED = 35;
-
-
+  final int GAME_BALL_DIRLEFT = -1;
+  final int GAME_BALL_DIRRIGHT = 1;
+  final int GAME_BALL_DIRUP = -1;
+  final int GAME_BALL_DIRDOWN = 1;
+  final int GAME_BALL_MAXSPEED = 35;
 
 
 
@@ -76,6 +73,10 @@ final int GAME_BALL_MAXSPEED = 35;
   float game_ballSpeedPercent;
   int game_ballStroKeweight;
 
+// Game rules parameters
+  int game_maxScore;
+  int game_playerScore;
+  int game_enemyScore;
 
 
 

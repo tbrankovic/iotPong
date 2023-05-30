@@ -8,7 +8,7 @@
   * Authors       : Tristan Brankovic
   *                 Alexandre Eang
   *
-  * Date          : 28/05/2023
+  * Date          : 30/05/2023
   * Created on    : 28/05/2023
   * Version       : 1.0 
   * Repository    : github.com/tbrankovic/iotPong/
@@ -18,20 +18,9 @@
 */
 
 
-/* general display variables
-  String displayType;  // type of content being displayed
-  int[] displayVariant;  // array of information about the content being displayed
-  String displayTheme;  // active theme
-  color[] displayColor; // array of the colors used by the active theme
-*/
-
 
 // === === CONSTANTS === ===
 // === === ========= === ===
-final int UI_DISPLAYTYPE_MENU = 0;
-final int UI_DISPLAYTYPE_GAME = 1;
-
-
 final int UI_THEME_MAXINDEX = 2;
 final String[] UI_THEME_NAME = {
   "Dark theme",
@@ -67,7 +56,6 @@ final int[] UI_TIMETRIGGER = {200,300,500,600};
 
 // === === VARS === ===
 // === === ==== === ===
-int ui_displayType;
 int ui_theme;
 
 boolean isGameAlive;
@@ -123,6 +111,7 @@ void ui_drawMenu(){
   for (int k = 0 ; k<=nav_maxRow ; k++){
 
     stroke(UI_PRIMARYCOLOR[ui_theme]);
+    strokeWeight(1);
     fill(UI_BGCOLOR[ui_theme]);
     if (k == nav_activeRow) fill(UI_PRIMARYCOLOR[ui_theme]);
     rect(
@@ -149,6 +138,7 @@ void ui_drawMenu(){
 
 void ui_highlightButton(){
   stroke(UI_SECONDARYCOLOR[ui_theme]);
+  strokeWeight(1);
   fill(0); 
   rect(
     width/2,
@@ -169,12 +159,12 @@ void ui_highlightButton(){
 // === === OTHER FUNCTIONS === ===
 // === === =============== === ===
 void ui_specialExit(){
-  switch (ui_displayType){
-  case  UI_DISPLAYTYPE_MENU:
+  switch (displayType){
+  case  DISPLAYTYPE_MENU:
     exit();
     return;
 
-  case UI_DISPLAYTYPE_GAME:
-    ui_displayType = UI_DISPLAYTYPE_MENU;
+  case DISPLAYTYPE_GAME:
+    displayType = DISPLAYTYPE_MENU;
   }
 }

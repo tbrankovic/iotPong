@@ -7,7 +7,7 @@
   * Authors       : Tristan Brankovic
   *                 Alexandre Eang
   *
-  * Date          : 28/05/2023
+  * Date          : 30/05/2023
   * Created on    : 25/05/2023
   * Version       : 1.0 
   * Repository    : github.com/tbrankovic/iotPong/
@@ -34,6 +34,7 @@ final int ALT_LINK_IDLE = 1;
 final int ALT_LINK_BACK = 2;
 final int ALT_LINK_CALIBRATION = 3;
 final int ALT_LINK_MODIFYRULES = 4;
+final int ALT_LINK_STARTGAME = 5;
 
 // MENU UIDs
 final int NAV_MENU_COUNT = 9;// max index + 1
@@ -97,7 +98,7 @@ final int NAV_LOBBYGUEST = 8;
     ALT_LINK
   };
   final int[] NAV_SOLOMENU_LINK ={
-    ALT_LINK_IDLE,
+    ALT_LINK_STARTGAME,
     ALT_LINK_IDLE,
     ALT_LINK_IDLE,
     ALT_LINK_IDLE,
@@ -403,7 +404,6 @@ void nav_appendPath(int newPathElement){
 }
 
 void nav_cropPath(int pathIndex){
-  int currentDepth = nav_path.length-1;
   int[] nav_path_buffer = new int[pathIndex];
   // partial copy
   for (int depthIndex = 0 ; depthIndex < pathIndex ; depthIndex++){
@@ -468,6 +468,9 @@ void nav_menuOk(){
       nav_setMenu(NAV_PARTYSETUP);
       nav_label[5]="Confirm changes";
       nav_appendPath(NAV_PARTYSETUP);
+      return;
+    case ALT_LINK_STARTGAME:
+      displayType = DISPLAYTYPE_GAME;
       return;
   }
   return;
