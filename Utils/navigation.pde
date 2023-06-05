@@ -460,17 +460,21 @@ void nav_menuOk(){
     case ALT_LINK_IDLE:
       return;
     case ALT_LINK_CALIBRATION:
+      joystick_calibrateInit();
+      displayType = DISPLAYTYPE_CALIBRATION;
       return;
     case ALT_LINK_BACK:
       nav_menuBack();
       return;
     case ALT_LINK_MODIFYRULES:
       nav_setMenu(NAV_PARTYSETUP);
+      nav_activeMenu_name = "Modify party rules";
       nav_label[5]="Confirm changes";
       nav_appendPath(NAV_PARTYSETUP);
       return;
     case ALT_LINK_STARTGAME:
       displayType = DISPLAYTYPE_GAME;
+      game_set();
       return;
   }
   return;
