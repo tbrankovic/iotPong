@@ -22,13 +22,15 @@
 // === === ========= === ===
 final int DISPLAYTYPE_MENU = 0;
 final int DISPLAYTYPE_GAME = 1;
+final int DISPLAYTYPE_CALIBRATION = 2;
 
-
+final int JOYSTICK_COM_PORT = 0;
 
 // === === VARS === ===
 // === === ==== === ===
 int displayType;
-
+int timeTracker;
+int timeT0;
 
 
 // === === SETUP === ===
@@ -36,14 +38,20 @@ int displayType;
 void setup(){
   //setup window
   size(1280,720);
-  frameRate(144);
+  frameRate(240);
+
+
+  timeTracker=millis();
+  timeT0=millis();
 
   // unitary test
   TEST_GAME_init();
   TEST_UI_init();
-
+  printArray(Serial.list());
+  initJoystick();
   //execute client config
   //initialize com port ?
+  displayType=DISPLAYTYPE_CALIBRATION;
 }
 
 
@@ -51,6 +59,11 @@ void setup(){
 // === === LOOP === ===
 // === === ==== === ===
 void draw(){
+
+  
+  //println(millis()-timeTracker);
+  //timeTracker=millis();
+
   
   switch(displayType){
     case DISPLAYTYPE_GAME:
@@ -59,6 +72,9 @@ void draw(){
     case DISPLAYTYPE_MENU:
       TEST_UI();
       return;
+    case DISPLAYTYPE_CALIBRATION:
+      joystick_calibrate();
+      return;
     default:
       TEST_UI();
       return;
@@ -66,6 +82,7 @@ void draw(){
   //getMenu_type  
   
   //then action
+  
 }
 
 
