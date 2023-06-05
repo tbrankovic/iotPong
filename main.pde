@@ -38,7 +38,7 @@ int timeT0;
 void setup(){
   //setup window
   size(1280,720);
-  frameRate(240);
+  frameRate(60);
 
 
   timeTracker=millis();
