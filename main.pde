@@ -16,6 +16,13 @@
   * === === === === === === === === === ===
  (c) Tristan Brankovic & Alexandre Eang
 */
+String apiMsg;
+import http.requests.*;
+// SERVER PARAMETERS
+import processing.net.*;
+
+Server myServer;
+Client myClient;
 
 
 // === === CONSTANTS === ===
@@ -40,9 +47,9 @@ void setup(){
   size(1280,720);
   frameRate(60);
 
-
-  timeTracker=millis();
-  timeT0=millis();
+  apiMsg = getWindMessage();
+  // timeTracker=millis();
+  // timeT0=millis();
 
   // unitary test
   TEST_GAME_init();
@@ -89,3 +96,21 @@ void draw(){
 
 // === === OTHER FUNCTIONS === ===
 // === === ===== ========= === ===
+String getWindMessage() {
+  GetRequest get = new GetRequest("http://api.weatherapi.com/v1/forecast.json?q=Paris&days=1&aqi=no&alerts=no&key=135cadb4546b47a9a43124718230506");
+  get.send();
+  get.addHeader("Accept", "application/json");
+  JSONObject json = parseJSONObject(get.getContent());  
+  
+  if (json == null) {
+    println("API connection error");
+    return "API connection error";
+  } else {
+    JSONObject current = json.getJSONObject("current");
+    Integer windSpeed = current.getInt("wind_kph");
+    
+    String msg = "Il y a " + windSpeed + " km/h de vent à Paris. Vous pouvez blâmer le vent si vous perdez!";
+    println(msg);
+    return msg;
+  }
+}
