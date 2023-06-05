@@ -31,7 +31,7 @@ void TEST_NAV_init(){
   initInput();
   initNav();
 
-  frameRate(144);
+  //frameRate(60);
 
   TEST_NAV_console();
 }

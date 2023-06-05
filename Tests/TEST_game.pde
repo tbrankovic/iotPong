@@ -28,7 +28,7 @@ void TEST_GAME_init(){
   
   displayType = DISPLAYTYPE_GAME;
   ui_theme = THEME_DARK;
-  frameRate(144);
+  //frameRate(60);
   background(20);
   game_set();
   
@@ -45,11 +45,11 @@ void TEST_GAME(){
   
   
   
-  if (isPressed_down){
+  if (isPressed_down || getJoystick_down()){
     game_moveDown();
   };
 
-  if (isPressed_up){
+  if (isPressed_up || getJoystick_up()){
     game_moveUp();
   }
 

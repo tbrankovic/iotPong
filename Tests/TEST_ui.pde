@@ -21,7 +21,7 @@
 // === === SETUP === ===
 // === === ===== === ===
 void TEST_UI_init(){
-  frameRate(144);
+  //frameRate(60);
   background(0);
 
   initInput();
@@ -43,12 +43,12 @@ void TEST_UI(){
 
   if (ui_interrupt)return;
   
-  if (getEvent_up()){
+  if (getEvent_up() || getJoystick_eventUp() ){
     nav_menuUp();
     TEST_NAV_console();
   }
 
-  if (getEvent_down()){
+  if (getEvent_down() || getJoystick_eventDown() ){
     nav_menuDown();
     TEST_NAV_console();
   }
