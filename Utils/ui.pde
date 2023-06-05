@@ -107,6 +107,15 @@ void ui_drawMenu(){
   textAlign(CENTER, CENTER);
   text(nav_activeMenu_name.toUpperCase(), width/2 , height/8);
 
+  if (nav_activeMenu == NAV_MAINMENU){
+    noStroke();
+  fill(UI_PRIMARYCOLOR[THEME_PROCESSING]);
+  textSize(26);
+  textAlign(CENTER, CENTER);
+  text(apiMsg.toUpperCase(), width/2 , height/8-64);
+  }
+
+
   //draw button boxes
   for (int k = 0 ; k<=nav_maxRow ; k++){
 

@@ -34,7 +34,9 @@ final int ALT_LINK_IDLE = 1;
 final int ALT_LINK_BACK = 2;
 final int ALT_LINK_CALIBRATION = 3;
 final int ALT_LINK_MODIFYRULES = 4;
-final int ALT_LINK_STARTGAME = 5;
+final int ALT_LINK_STARTGAME_LOCAL = 5;
+final int ALT_LINK_STARTGAME_HOSTED = 6;
+final int ALT_LINK_STARTGAME_JOINED = 7;
 
 // MENU UIDs
 final int NAV_MENU_COUNT = 9;// max index + 1
@@ -98,7 +100,7 @@ final int NAV_LOBBYGUEST = 8;
     ALT_LINK
   };
   final int[] NAV_SOLOMENU_LINK ={
-    ALT_LINK_STARTGAME,
+    ALT_LINK_STARTGAME_LOCAL,
     ALT_LINK_IDLE,
     ALT_LINK_IDLE,
     ALT_LINK_IDLE,
@@ -230,7 +232,7 @@ final int NAV_LOBBYGUEST = 8;
     0
   };
   final int[] NAV_LOBBYHOST_LINK ={
-    ALT_LINK_IDLE,
+    ALT_LINK_STARTGAME_HOSTED,
     ALT_LINK_MODIFYRULES,
     ALT_LINK_IDLE,
     NAV_ONLINEMENU
@@ -249,7 +251,7 @@ final int NAV_LOBBYGUEST = 8;
     ALT_LINK
   };
   final int[] NAV_LOBBYGUEST_LINK ={
-    ALT_LINK_IDLE,
+    ALT_LINK_STARTGAME_JOINED,
     ALT_LINK_BACK
   };
 
@@ -472,7 +474,22 @@ void nav_menuOk(){
       nav_label[5]="Confirm changes";
       nav_appendPath(NAV_PARTYSETUP);
       return;
-    case ALT_LINK_STARTGAME:
+    case ALT_LINK_STARTGAME_LOCAL:
+      isGameLocal = true;
+      displayType = DISPLAYTYPE_GAME;
+      game_set();
+      return;
+    case ALT_LINK_STARTGAME_HOSTED:
+      myServer = new Server(this, 5204); 
+      isGameLocal = false;
+      isPlayer_Hosting = true;
+      displayType = DISPLAYTYPE_GAME;
+      game_set();
+      return;
+    case ALT_LINK_STARTGAME_JOINED:
+      myClient = new Client(this, "127.0.0.1", 5204); 
+      isGameLocal = false;
+      isPlayer_Hosting = false;
       displayType = DISPLAYTYPE_GAME;
       game_set();
       return;
